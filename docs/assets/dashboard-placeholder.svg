@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Dashboard screenshot placeholder">
+  <rect width="960" height="540" fill="#0f172a"/>
+  <rect x="40" y="40" width="220" height="460" rx="8" fill="#111827" stroke="#334155"/>
+  <rect x="300" y="60" width="600" height="64" rx="8" fill="#1f2937" stroke="#334155"/>
+  <rect x="300" y="160" width="130" height="90" rx="8" fill="#064e3b"/>
+  <rect x="456" y="160" width="130" height="90" rx="8" fill="#1e3a8a"/>
+  <rect x="612" y="160" width="130" height="90" rx="8" fill="#78350f"/>
+  <rect x="768" y="160" width="130" height="90" rx="8" fill="#14532d"/>
+  <rect x="300" y="286" width="600" height="176" rx="8" fill="#111827" stroke="#334155"/>
+  <text x="300" y="520" fill="#94a3b8" font-family="Arial, sans-serif" font-size="20">Skhemata Runtime Triage Agent - dashboard screenshot placeholder</text>
+</svg>

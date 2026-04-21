@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Approval flow animation placeholder">
+  <rect width="960" height="540" fill="#0f172a"/>
+  <rect x="120" y="90" width="720" height="300" rx="12" fill="#1c1917" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="190" cy="160" r="34" fill="#78350f"/>
+  <path d="M190 140 L214 184 H166 Z" fill="#f59e0b"/>
+  <rect x="250" y="132" width="420" height="28" rx="4" fill="#fbbf24"/>
+  <rect x="250" y="186" width="520" height="70" rx="8" fill="#292524" stroke="#92400e"/>
+  <rect x="250" y="300" width="220" height="56" rx="8" fill="#059669"/>
+  <rect x="510" y="300" width="220" height="56" rx="8" fill="#7f1d1d"/>
+  <text x="120" y="470" fill="#94a3b8" font-family="Arial, sans-serif" font-size="20">Approval flow placeholder - replace with a demo gif if desired</text>
+</svg>

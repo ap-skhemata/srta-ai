@@ -1,0 +1,167 @@
+{
+  "deployment_regression": {
+    "match_terms": ["deployment", "regression", "latency", "errors", "payment", "checkout"],
+    "tenant_health": {
+      "status": "degraded",
+      "summary": "Checkout API is degraded after a recent deployment. Error rate and latency are above tenant SLO."
+    },
+    "metrics": {
+      "latency_p99_ms": 2440,
+      "error_rate_percent": 8.7,
+      "request_rate_per_min": 12600,
+      "model_queue_depth": 42
+    },
+    "logs": [
+      "checkout-api error: TypeError reading feature flag schema v3",
+      "checkout-api warning: elevated 5xx responses after deploy api-2026.04.20-1421",
+      "gateway warning: upstream checkout-api p99 latency above 2s"
+    ],
+    "deployments": [
+      {
+        "service": "checkout-api",
+        "version": "api-2026.04.20-1421",
+        "previous_version": "api-2026.04.19-0915",
+        "deployed_at": "2026-04-20T14:21:00Z",
+        "status": "completed"
+      }
+    ],
+    "workers": {
+      "status": "healthy",
+      "unhealthy_workers": [],
+      "notes": "Workers are healthy; symptoms are isolated to API pods."
+    },
+    "hypothesis": {
+      "description": "A recent checkout-api deployment introduced a schema handling regression.",
+      "confidence": 0.88,
+      "evidence": [
+        "Errors started after deployment api-2026.04.20-1421",
+        "Logs show feature flag schema exceptions",
+        "Workers are healthy, reducing likelihood of queue processing failure"
+      ]
+    },
+    "action": {
+      "type": "rollback_deployment",
+      "label": "Rollback checkout-api from api-2026.04.20-1421 to api-2026.04.19-0915",
+      "risk": "medium",
+      "params": {
+        "service": "checkout-api",
+        "target_version": "api-2026.04.19-0915"
+      }
+    },
+    "verification": {
+      "latency_p99_ms": 310,
+      "error_rate_percent": 0.4,
+      "summary": "Checkout API recovered after rollback. Error rate and p99 latency returned within SLO."
+    }
+  },
+  "unhealthy_worker": {
+    "match_terms": ["worker", "stuck", "queue", "jobs", "restart", "analytics"],
+    "tenant_health": {
+      "status": "degraded",
+      "summary": "Background processing is delayed because one worker is unhealthy."
+    },
+    "metrics": {
+      "latency_p99_ms": 380,
+      "error_rate_percent": 1.2,
+      "request_rate_per_min": 8200,
+      "job_queue_depth": 1840
+    },
+    "logs": [
+      "analytics-worker-07 error: heartbeat missed for 180 seconds",
+      "analytics-worker-07 error: failed to renew lease for partition tenant-events-3",
+      "scheduler warning: queue age exceeds 15 minutes"
+    ],
+    "deployments": [
+      {
+        "service": "analytics-worker",
+        "version": "worker-2026.04.18-1100",
+        "previous_version": "worker-2026.04.15-0930",
+        "deployed_at": "2026-04-18T11:00:00Z",
+        "status": "completed"
+      }
+    ],
+    "workers": {
+      "status": "unhealthy",
+      "unhealthy_workers": ["analytics-worker-07"],
+      "notes": "One worker is missing heartbeats and holding a queue partition lease."
+    },
+    "hypothesis": {
+      "description": "analytics-worker-07 is wedged and blocking queue partition processing.",
+      "confidence": 0.91,
+      "evidence": [
+        "Worker health reports analytics-worker-07 unhealthy",
+        "Logs show missed heartbeats and lease renewal errors",
+        "Queue depth is rising while API metrics remain mostly stable"
+      ]
+    },
+    "action": {
+      "type": "restart_worker",
+      "label": "Restart analytics-worker-07 to release the stuck partition lease",
+      "risk": "medium",
+      "params": {
+        "worker_id": "analytics-worker-07"
+      }
+    },
+    "verification": {
+      "job_queue_depth": 230,
+      "worker_status": "healthy",
+      "summary": "Worker restart restored heartbeats and queue depth is draining."
+    }
+  },
+  "overloaded_model_pool": {
+    "match_terms": ["model", "pool", "inference", "overloaded", "tokens", "ai", "route"],
+    "tenant_health": {
+      "status": "degraded",
+      "summary": "Inference requests are delayed by an overloaded primary model pool."
+    },
+    "metrics": {
+      "latency_p99_ms": 5100,
+      "error_rate_percent": 3.6,
+      "request_rate_per_min": 4300,
+      "model_queue_depth": 960,
+      "primary_pool_utilization_percent": 98
+    },
+    "logs": [
+      "router warning: primary model pool admission queue saturated",
+      "inference-api warning: request timed out waiting for model slot",
+      "router info: standby pool available in same region"
+    ],
+    "deployments": [
+      {
+        "service": "inference-router",
+        "version": "router-2026.04.12-0830",
+        "previous_version": "router-2026.04.05-1010",
+        "deployed_at": "2026-04-12T08:30:00Z",
+        "status": "completed"
+      }
+    ],
+    "workers": {
+      "status": "healthy",
+      "unhealthy_workers": [],
+      "notes": "Workers and API pods are healthy. Bottleneck is isolated to model pool capacity."
+    },
+    "hypothesis": {
+      "description": "The primary model pool is saturated and requests should be failed over to standby capacity.",
+      "confidence": 0.86,
+      "evidence": [
+        "Primary pool utilization is 98%",
+        "Model queue depth is elevated",
+        "Standby pool is available in-region"
+      ]
+    },
+    "action": {
+      "type": "failover_route",
+      "label": "Fail over tenant inference route to the standby model pool",
+      "risk": "high",
+      "params": {
+        "from_pool": "primary-model-pool",
+        "to_pool": "standby-model-pool"
+      }
+    },
+    "verification": {
+      "latency_p99_ms": 690,
+      "model_queue_depth": 85,
+      "summary": "Route failover reduced model queue depth and restored inference latency."
+    }
+  }
+}

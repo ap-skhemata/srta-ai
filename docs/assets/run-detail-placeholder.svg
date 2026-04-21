@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Run detail screenshot placeholder">
+  <rect width="960" height="540" fill="#0f172a"/>
+  <rect x="50" y="48" width="860" height="72" rx="8" fill="#111827" stroke="#334155"/>
+  <rect x="50" y="150" width="520" height="320" rx="8" fill="#111827" stroke="#334155"/>
+  <line x1="110" y1="210" x2="110" y2="420" stroke="#475569" stroke-width="4"/>
+  <circle cx="110" cy="210" r="18" fill="#2563eb"/>
+  <circle cx="110" cy="285" r="18" fill="#059669"/>
+  <circle cx="110" cy="360" r="18" fill="#d97706"/>
+  <rect x="610" y="150" width="300" height="145" rx="8" fill="#111827" stroke="#334155"/>
+  <rect x="610" y="325" width="300" height="145" rx="8" fill="#111827" stroke="#334155"/>
+  <text x="50" y="520" fill="#94a3b8" font-family="Arial, sans-serif" font-size="20">Run detail, timeline, evidence, and hypotheses placeholder</text>
+</svg>
