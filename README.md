@@ -69,6 +69,10 @@ docs/
   ai-log/README.md
 ```
 
+For a deeper technical overview, see `docs/architecture.md`. It covers the agent runtime design, mock tool integration, SQLite state management, API layer, scenario selection, and key implementation tradeoffs.
+
+For the AI interaction records, see `docs/ai-log/README.md` and `docs/ai-log/full-chat-transcript.md`.
+
 ## Backend Setup
 
 From the repository root:

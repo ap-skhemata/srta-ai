@@ -2,6 +2,8 @@
 
 This project was developed with AI assistance in a local coding-agent workflow.
 
+For the complete transcript-style session record, see `docs/ai-log/full-chat-transcript.md`.
+
 ## How AI Tools Were Used
 
 AI assistance was used for:
