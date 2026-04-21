@@ -6,13 +6,13 @@ The system is intentionally self-contained: no paid API keys, no cloud accounts,
 
 ## Demo Placeholders
 
-Screenshots and gifs can be dropped into `docs/assets/` before submission:
+More screenshots and gifs can be dropped into `docs/assets/`
 
-![Runs dashboard placeholder](docs/assets/dashboard-placeholder.svg)
+![Runs dashboard placeholder](docs/assets/dashboard-placeholder.png)
 
-![Run detail timeline placeholder](docs/assets/run-detail-placeholder.svg)
+![Run detail timeline placeholder](docs/assets/run-detail-placeholder.png)
 
-![Approval flow placeholder](docs/assets/approval-flow-placeholder.svg)
+![Approval flow placeholder](docs/assets/approval-flow-placeholder.png)
 
 ## What Works
 
